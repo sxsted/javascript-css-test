@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="canonical" href="http://codepen.io/gauravshankar/pen/GgYjQO">
+<link rel="stylesheet prefetch" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="style4.css">
+<meta charset="utf-8">
+<title> TEST </title>
+<div id="top">
+<div class="content">
+<button id="toggleMenu" class="btn bth-danger">
+    <i class ="fa fa-bars fa-2x"></i>
+    </button>
+<h1 class="ha"><div id="blog_title"></div></h1>
+<!--
+<div id="nav">
+<li><a href="http://yahoo.com.tw"> fsafasfasdfas </a>
+<ul class="sub2">
+<div id="tt"></div>
+</ul>
+</li>
+</div>
+-->
+<div id="showtime"></div>
+<div id="icon_p">
+<i class ="fa fa-facebook-official fa-2x"></i>
+<i class ="fa fa-twitter-square fa-2x"></i>
+<i class ="fa fa-github-square fa-2x"></i>
+<i class ="fa fa-bars fa-2x"></i>
+</div>
+</div>
+</div>
+<div id="blog_space">
+<input onclick="mytitle('mhperng')" id="ge" type="button" value="清大彭明輝的部落格">
+<input onclick="mytitle('tysh310246')" id="ge" type="button" value="Blue Space">
+<input onclick="mytitle('kkbruce')" id="ge" type="button" value="KingKong Bruce記事">
+<input onclick="mytitle('healthbyall')" id="ge" type="button" value="養生文章及心得分享">
+</div>
+<div id="container1">
+<div class="slide-menu">
+<div id="idd"></div>
+</div>
+<div class="mmenu">
+<div id="idd2"></div>
+</div>
+</div>
+<script>
+     
+    var titlee = 'tysh310246';
+    
+    var titleChange = document.getElementById("ge");
+    titleChange.addEventListener("onclick",mytitle);
+    /*
+    titleChange.addEventListener("onclick",clean);
+    function clean()
+    {
+        document.getElementsById("ptype").innerHTML="fsdf ";
+    }
+    */
+    function mytitle(tt)
+    {
+     var hi = document.getElementById('ptype');
+     hi.innerHTML = " ";
+    
+    //var titlee = 'mhperng';
+    var script = document.createElement("script");
+    script.src = "http://"+ tt +".blogspot.com/feeds/posts/default?alt=json&callback=blog";
+    
+   // scriptE1.src = "http://tedshd.lionfree.net/demo/php/api_test.php?callback=test";
+    document.getElementsByTagName("head")[0].appendChild(script);
+    
+    /*
+    var tran = JSON.parse(blog);
+    console.log(tran);
+    */
+    }
+    function blog(data)
+    {
+     //document.write(console.log(data));
+     //var rr = console.log(data);
+     //var ee = JSON.parse(rr);
+     //document.write(ee);
+     //var text = JSON.parse(tt);
+     //alert(text.feed[0].category);
+        /*
+     var tt = console.log(data);
+     ss = JSON.stringify(tt);
+     document.getElementById("ff").innerHTML =  ss;
+       */
+     console.log(data);
+     //alert(data.feed.category[0].term);
+     //alert(data.feed.category[0].term);
+    // document.getElementById("ff").innerHTML = data.feed.category[0].term;
+     //document.getElementById("ff").innerHTML = data.feed.category[1].term;
+     //document.getElementById("ff").innerHTML = data.feed.category[0].term;
+    
+     var blog_title = data.feed.title.$t;
+     document.getElementById("blog_title").innerHTML = blog_title;
+     
+     var myArray = data.feed.entry;
+     var myA = data.feed.category;
+     //alert(myArray.length);
+     myFunction(myArray);
+     myFunction4(myA);
+     function myFunction4(myA)
+     {
+         var outt="";
+         var ii;
+         for(ii=0; ii<myA.length; ii++)
+         {
+             outt +='<li>' + '<a href=http://tysh310246.blogspot.tw/search/label/'+myA[ii].term+'>' + myA[ii].term+'</a></li>';
+         }
+       //  document.getElementById("tt").innerHTML = outt;
+     }
+     function myFunction(arr){
+         var out = "";
+         var i ;
+         for( i = 0; i < arr.length; i++)
+         {
+             out += '<li>' + '<a href =#title_'+i+' class="hvr-fade">' + arr[i].title.$t + '</a></li>'; 
+         }
+         document.getElementById("idd").innerHTML = out;
+     }
+     ff(myArray);
+     function ff(ffd)
+        {
+            var out2 ="";
+            var i2;
+            for(i2=0; i2<ffd.length;i2++)
+            {
+               out2 += '<a name=title_'+i2+'></a>'+'<h2>'+ ffd[i2].title.$t +'</h2>'+ '<p>' +  ffd[i2].content.$t + '</p><br>'; 
+            }
+            document.getElementById("idd2").innerHTML = out2;
+        }
+     }
+
+     /*
+     tt = JSON.parse(blog());
+     document.getElementById("ff").innerHTML = tt.category;
+     */
+
+     function ShowTime()
+     {
+         var NowDate=new Date();
+         var h = NowDate.getHours();
+         var m = NowDate.getMinutes();
+         var s = NowDate.getSeconds();
+         document.getElementById("showtime").innerHTML = NowDate.getFullYear() + '年' + (NowDate.getMonth()+1) + '月' + NowDate.getDate() + '日' + h +':'+ m +':'+ s;
+         setTimeout("ShowTime()",1000);
+     } 
+    
+     ShowTime();
+     
+     $(document).ready(function(){
+             $('#toggleMenu').click(function()
+                 {$('.slide-menu,.content,.mmenu').toggleClass('slide-in-left');
+                 });
+             });
+    
+
+</script>
+</head>
+<body>
+<div id="ptype">歡迎使用</div>
+<!-- 15-6-21
+<script>
+    var data = $.getJSON;
+    data.success();
+    data.error();
+</script>
+-->
+</body>
+</html>
